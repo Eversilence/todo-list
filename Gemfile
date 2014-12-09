@@ -11,13 +11,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'devise'
 
 group :development, :test do
-	gem 'pry'
-	gem 'pry-doc'
-	gem 'pry-macro'
-	gem 'pry-rails'
-	gem 'better_errors'
-	gem 'binding_of_caller'
-	gem 'spring'
+  gem 'pry'
+  gem 'pry-doc'
+  gem 'pry-macro'
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'spring'
 end
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 
