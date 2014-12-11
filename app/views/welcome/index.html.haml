@@ -1,9 +1,10 @@
-.container.background
+.container
   .jumbotron.transparent
     %h1 SIMPLE TODO LISTS
     %p.lead FROM RUBY GARAGE
     %p
-      %a.btn.btn-lg.btn-success{:href => "#", :role => "button"} Sign in to start &raquo
+      = link_to user_session_path, class: 'btn btn-lg btn-success' do
+        Sign in to start &raquo
   .row
     .col-lg-4
       %h2 Placeholder
