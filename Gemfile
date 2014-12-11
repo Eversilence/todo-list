@@ -14,6 +14,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'devise'
 gem 'unicorn'
+gem 'angularjs-rails'
+gem 'angular-rails-templates'
+# gem 'angular-ui-bootstrap-rails'
 
 group :development, :test do
   gem 'pry'
