@@ -1,7 +1,7 @@
 .container{"ng-app" => "todo"}
   .panel.panel-success
-    .panel-heading
-      %h1{"ng-if" => "name"} Hello, {{name}}
+    .panel-heading{"ng-if" => "name"}
+      %h1 Hello, {{name}}
     .panel-body
       %form.form-inline
         .form-group
