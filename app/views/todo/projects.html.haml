@@ -1,8 +1,15 @@
-.container{"ng-app" => "todo"}
-  .panel.panel-success
-    .panel-heading{"ng-if" => "name"}
-      %h1 Hello, {{name}}
-    .panel-body
-      %form.form-inline
-        .form-group
-          %input.form-control{:autofocus => "", "ng-model" => "name", :placeholder => "Enter your name", :type => "text"}
+.container{"ng-app" => "todo", "ng-controller" => "ProjectsController"}
+  .jumbotron.transparent
+    %h1 SIMPLE TODO LISTS
+    %p.lead FROM RUBY GARAGE
+
+  .project-panel{"ng-if" => "projects", "ng-repeat" => "project in projects"}
+    .project
+      %p.name
+        {{project.name}}
+        %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteProject(project.id)"}
+  .panel.panel-body
+    %form.form-inline
+      .form-group
+        %input.form-control{"ng-model" => "name", :placeholder => "Enter a project title", :type => "text"}
+        .btn.btn-success{"ng-click" => "addProject()"} Add new project
