@@ -15,6 +15,7 @@ gem 'devise'
 gem 'unicorn'
 gem 'angularjs-rails'
 gem 'angular-rails-templates'
+gem 'toastr-rails'
 # gem 'turbolinks'
 # gem 'angular-ui-bootstrap-rails'
 
