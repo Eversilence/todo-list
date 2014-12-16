@@ -18,7 +18,8 @@ class Api::ProjectsController < Api::ApplicationController
   end
 
   def destroy
-    project = Project.where(id: project_params[:id], user_id: current_user.id)
+    project = Project.where(id: params[:id], user_id: current_user.id)
+
     if project
       project.first.destroy
       render nothing: true, status: 200

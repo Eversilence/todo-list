@@ -1,41 +1,30 @@
-@mainApp.controller 'ProjectsController', ['$scope', 'Projects', '$http'
-($scope, Projects, $http) ->
-#
+@mainApp.controller 'ProjectsController', ['$scope', 'Project', '$http'
+($scope, Project, $http) ->
 
   getProjects = ()->
-    $scope.projects = Projects.query()
+    $scope.projects = Project.index()
 
   $scope.addProject = ()->
-    request = $http
-      method: "post",
-      url: "/api/projects"
-      data: { project: {name: $scope.name} }
-
-    request.success () ->
-      toastr.success('New project successfuly added')
-      getProjects()
-      $scope.name = ''
-
-    request.error () ->
-      toastr.error('Error adding new project. Try again later')
+    Project.create(project: {name: $scope.name} ).$promise.then(
+      (value)->
+        toastr.success('New project successfuly added')
+        getProjects()
+        $scope.showForm = false
+        $scope.name = ''
+      ,
+      (error)->
+        toastr.error('Error adding new project. Try again later')
+      )
 
   $scope.deleteProject = (id)->
-    console.log (id)
-    request = $http
-      method: "post",
-      url: "/api/projects/destroy"
-      data: { project: {id: id} }
-
-    request.success () ->
-      toastr.success('Project successfuly deleted')
-      getProjects()
-
-    request.error () ->
-      toastr.error('Error deleting new project. Try again later')
-
-  $scope.test = (string)->
-    alert(string)
-
+    Project.destroy(id: id).$promise.then(
+      (value)->
+        toastr.success('Project successfuly deleted')
+        getProjects()
+      ,
+      (error)->
+        toastr.error('Error deleting project. Try again later')
+      )
 
   getProjects()
 

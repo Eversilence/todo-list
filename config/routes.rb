@@ -5,11 +5,9 @@ Rails.application.routes.draw do
   get  'todo/projects'
 
   namespace :api, defaults: { format: 'json' } do
-    get  'current_user'       => 'sessions#current_user_info'
+    get    'current_user'       => 'sessions#current_user_info'
 
-    get  'projects'           => 'projects#index'
-    post 'projects'           => 'projects#create'
-    post 'projects/destroy'   => 'projects#destroy'
+    resources :projects,        only:[:index, :create, :destroy]
   end
 
   # Example of regular route:
