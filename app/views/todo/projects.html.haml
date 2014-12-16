@@ -8,8 +8,17 @@
       %p.name
         {{project.name}}
         %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteProject(project.id)"}
-  .panel.panel-body
-    %form.form-inline
+        %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => ""}
+
+  .panel.panel-body{'ng-show' => 'showForm'}
+    %form.form-inline{ name:'project_form', 'ng-submit' => 'addProject()',
+     "ng-class" => "{'has-error': project_form.name.$invalid, 'has-success': !project_form.name.$invalid}" }
       .form-group
-        %input.form-control{"ng-model" => "name", :placeholder => "Enter a project title", :type => "text"}
-        .btn.btn-success{"ng-click" => "addProject()"} Add new project
+        %input.form-control{name: 'name', "ng-model" => "name", required: 'true', :placeholder => "Enter a project title", :type => "text"}
+        %button.btn.btn-success{type: 'submit'} Add new project
+
+
+  .text-center
+    .btn.btn-lg.btn-primary{"aria-label" => "Left Align", :type => "button", 'ng-click' => 'showForm = true'}
+      %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+      Add TODO list
