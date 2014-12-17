@@ -5,12 +5,20 @@
 
   .project-panel{"ng-if" => "projects", "ng-repeat" => "project in projects"}
     .project
-      %p.name
+      %p.name{'ng-hide' => 'showProjectUpdateForm'}
         {{project.name}}
+        %span.pull-left.calendar.glyphicon.glyphicon-calendar
         %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteProject(project.id)"}
-        %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => ""}
+        %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => "showProjectUpdateForm = true"}
 
-  .panel.panel-body{'ng-show' => 'showForm'}
+      %form.form-inline{ name: 'project_edit_form', 'ng-submit' => 'updateProject(project.id, project.name)',
+      'ng-show' => 'showProjectUpdateForm'}
+        .form-group
+          %input.update-input.form-control{name: 'name', "ng-model" => "project.name", required: 'true', :placeholder => "Enter a project title", :type => "text"}
+          %button.update-btn.btn.btn-success{type: 'submit'} Save
+        %span.pull-right.project-action.glyphicon.glyphicon-remove{"ng-click" => "showProjectUpdateForm = false"}
+
+  .panel.panel-body{'ng-show' => 'showProjectCreateForm'}
     %form.form-inline{ name:'project_form', 'ng-submit' => 'addProject()',
      "ng-class" => "{'has-error': project_form.name.$invalid, 'has-success': !project_form.name.$invalid}" }
       .form-group
@@ -19,6 +27,6 @@
 
 
   .text-center
-    .btn.btn-lg.btn-primary{"aria-label" => "Left Align", :type => "button", 'ng-click' => 'showForm = true'}
+    .btn.btn-lg.btn-primary{:type => "button", 'ng-click' => 'showProjectCreateForm = true'}
       %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
       Add TODO list

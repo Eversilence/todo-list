@@ -9,7 +9,7 @@
       (value)->
         toastr.success('New project successfuly added')
         getProjects()
-        $scope.showForm = false
+        $scope.showProjectCreateForm = false
         $scope.name = ''
       ,
       (error)->
@@ -24,6 +24,18 @@
       ,
       (error)->
         toastr.error('Error deleting project. Try again later')
+      )
+
+  $scope.updateProject = (id, name)->
+    console.log ("id: "+id+" name: "+name)
+    Project.update(id: id, project: {id: id, name: name}).$promise.then(
+      (value)->
+        toastr.success('Project name successfuly changed')
+        getProjects()
+        $scope.projectName = ''
+      ,
+      (error)->
+        toastr.error('Error changing project name. Try again later')
       )
 
   getProjects()

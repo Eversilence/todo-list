@@ -17,6 +17,16 @@ class Api::ProjectsController < Api::ApplicationController
 
   end
 
+  def update
+    project = Project.find(params[:id])
+
+    if project.update_attributes(project_params)
+      render nothing: true, status: 200
+    else
+      render nothing: true, status: 400
+    end
+  end
+
   def destroy
     project = Project.where(id: params[:id], user_id: current_user.id)
 
@@ -33,7 +43,6 @@ private
 
   def project_params
     params.require(:project).permit(
-      :id,
       :name
     )
   end
