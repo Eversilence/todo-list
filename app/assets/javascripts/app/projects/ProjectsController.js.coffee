@@ -1,5 +1,5 @@
-@mainApp.controller 'ProjectsController', ['$scope', 'Project', '$http'
-($scope, Project, $http) ->
+@mainApp.controller 'ProjectsController', ['$scope', 'Project'
+($scope, Project) ->
 
   getProjects = ()->
     $scope.projects = Project.index()
@@ -27,7 +27,6 @@
       )
 
   $scope.updateProject = (id, name)->
-    console.log ("id: "+id+" name: "+name)
     Project.update(id: id, project: {id: id, name: name}).$promise.then(
       (value)->
         toastr.success('Project name successfuly changed')
