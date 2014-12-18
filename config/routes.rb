@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     get    'current_user'       => 'sessions#current_user_info'
 
-    resources :projects,        only:[:index, :create, :update, :destroy]
+    resources :projects,        only:[:index, :create, :update, :destroy] do
+      resources :tasks,         only:[:index, :create, :update, :destroy]
+    end
   end
 
   # Example of regular route:

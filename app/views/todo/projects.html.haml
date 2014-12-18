@@ -18,12 +18,30 @@
           %button.update-btn.btn.btn-success{type: 'submit'} Save
         %span.pull-right.project-action.glyphicon.glyphicon-remove{"ng-click" => "showProjectUpdateForm = false"}
 
+      .tasks{"ng-controller" => "TasksController", "ng-init" => "getTasks(project.id)"}
+        %form.panel.panel-body.add-task-panel{ name:'task_form', 'ng-submit' => 'addTask(project.id)',
+     "ng-class" => "{'has-error': task_form.task_name.$invalid, 'has-success': !task_form.task_name.$invalid}" }
+          %span.pull-left.plus.glyphicon.glyphicon-plus
+          .input-group
+            %input.form-control{name: 'task_name', required: true, "ng-model" => "taskName"}
+            %span.input-group-btn
+              %button.btn.btn-success
+                Add Task
+
+        .task{"ng-if" => "tasks", "ng-repeat" => "task in tasks"}
+          %p.name
+            {{task.name}}
+            %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteTask(project.id, task.id)"}
+            %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => ""}
+
+
   .panel.panel-body{'ng-show' => 'showProjectCreateForm'}
-    %form.form-inline{ name:'project_form', 'ng-submit' => 'addProject()',
+    %form.panel.panel-body{ name:'project_form', 'ng-submit' => 'addProject()',
      "ng-class" => "{'has-error': project_form.name.$invalid, 'has-success': !project_form.name.$invalid}" }
-      .form-group
+      .input-group
         %input.form-control{name: 'name', "ng-model" => "name", required: 'true', :placeholder => "Enter a project title", :type => "text"}
-        %button.btn.btn-success{type: 'submit'} Add new project
+        %span.input-group-btn
+          %button.btn.btn-success{type: 'submit'} Add new project
 
 
   .text-center
