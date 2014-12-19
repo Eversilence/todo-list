@@ -5,34 +5,36 @@
 
   .project-panel{"ng-if" => "projects", "ng-repeat" => "project in projects"}
     .project
-      %p.name{'ng-hide' => 'showProjectUpdateForm'}
+      %p.name{'ng-hide' => 'selectedProject.index == $index'}
         {{project.name}}
         %span.pull-left.calendar.glyphicon.glyphicon-calendar
-        %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteProject(project.id)"}
-        %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => "showProjectUpdateForm = true"}
+        %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteProject(project.id, $index)"}
+        %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => "selectedProject.index = $index"}
 
-      %form.form-inline{ name: 'project_edit_form', 'ng-submit' => 'updateProject(project.id, project.name)',
-      'ng-show' => 'showProjectUpdateForm'}
+      %form.form-inline{ name: 'project_update_form', 'ng-submit' => 'updateProject(project.id, project.name)',
+      'ng-show' => 'selectedProject.index == $index'}
         .form-group
           %input.update-input.form-control{name: 'name', "ng-model" => "project.name", required: 'true', :placeholder => "Enter a project title", :type => "text"}
           %button.update-btn.btn.btn-success{type: 'submit'} Save
-        %span.pull-right.project-action.glyphicon.glyphicon-remove{"ng-click" => "showProjectUpdateForm = false"}
+        %span.pull-right.project-action.glyphicon.glyphicon-remove{"ng-click" => "selectedProject.index = -1"}
 
-      .tasks{"ng-controller" => "TasksController", "ng-init" => "getTasks(project.id)"}
-        %form.panel.panel-body.add-task-panel{ name:'task_form', 'ng-submit' => 'addTask(project.id)',
-     "ng-class" => "{'has-error': task_form.task_name.$invalid, 'has-success': !task_form.task_name.$invalid}" }
-          %span.pull-left.plus.glyphicon.glyphicon-plus
-          .input-group
-            %input.form-control{name: 'task_name', required: true, "ng-model" => "taskName"}
-            %span.input-group-btn
-              %button.btn.btn-success
-                Add Task
+    .tasks{"ng-controller" => "TasksController", "ng-init" => "getTasks(project.id)"}
+      %form.panel.panel-body.add-task-panel{ name:'task_form', 'ng-submit' => 'addTask(project.id)',
+   "ng-class" => "{'has-error': task_form.task_name.$invalid, 'has-success': !task_form.task_name.$invalid}" }
+        %span.pull-left.plus.glyphicon.glyphicon-plus
+        .input-group
+          %input.form-control{name: 'task_name', required: true, "ng-model" => "taskName"}
+          %span.input-group-btn
+            %button.btn.btn-success
+              Add Task
 
-        .task{"ng-if" => "tasks", "ng-repeat" => "task in tasks"}
-          %p.name
-            {{task.name}}
-            %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteTask(project.id, task.id)"}
-            %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => ""}
+      .task{"ng-if" => "tasks", "ng-repeat" => "task in tasks"}
+        %p.name{"ng-class" => "{'completed-task': task.completed}"}
+          {{task.name}}
+          %span.pull-left
+            %input{ class: 'checkbox-complete', "ng-change" => "taskMarkComplete(project.id, task.id, task.completed)", "ng-model" => "task.completed", :type => "checkbox"}
+          %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteTask(project.id, task.id, $index)"}
+          %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => ""}
 
 
   .panel.panel-body{'ng-show' => 'showProjectCreateForm'}
