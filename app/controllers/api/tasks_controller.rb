@@ -17,7 +17,13 @@ class Api::TasksController < Api::ApplicationController
   end
 
   def update
-  # not implemented yet
+    task = Task.find(params[:id])
+
+    if task.update_attributes(task_params)
+      render nothing: true, status: 200
+    else
+      render nothing: true, status: 400
+    end
   end
 
   def destroy

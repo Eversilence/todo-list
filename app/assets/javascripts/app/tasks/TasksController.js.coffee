@@ -18,15 +18,23 @@
   $scope.updateTask = (project_id, id) ->
     # not implemented yet
 
-  $scope.deleteTask = (project_id, id) ->
+  $scope.deleteTask = (project_id, id, index) ->
     Task.destroy(project_id: project_id, id: id).$promise.then(
       (value)->
-        toastr.success('New task successfuly added')
-        $scope.getTasks(project_id)
-        $scope.taskName = ''
+        toastr.success('Task was successfuly deleted')
+        $scope.tasks.splice(index, 1)
       ,
       (error)->
-        toastr.error('Error adding new task. Try again later')
+        toastr.error('Error deleting task. Try again later')
       )
 
+  $scope.taskMarkComplete = (project_id, id, completed) ->
+    Task.update(project_id: project_id, id: id, task: {completed: completed} ).$promise.then(
+      (value)->
+        toastr.success('Task was successfuly marked as completed') if isCompleted = true
+        toastr.success('Task was successfuly marked as not completed') if isCompleted = false
+      ,
+      (error)->
+        toastr.error('Error marking task complete/incomplete. Try again later')
+      )
 ]
