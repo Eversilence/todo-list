@@ -17,8 +17,9 @@
     Project.create(project: {name: $scope.name} ).$promise.then(
       (value)->
         toastr.success('New project successfuly added')
-        getProjects()
         $scope.name = ''
+        $scope.showProjectCreateForm = false
+        getProjects()
       ,
       (error)->
         toastr.error('Error adding new project. Try again later')
