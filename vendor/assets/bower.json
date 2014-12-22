@@ -1,0 +1,7 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "angular-strap": "latest",
+    "bootstrap-additions": "latest"
+  }
+}
