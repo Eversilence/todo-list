@@ -19,6 +19,7 @@ gem 'angular-rails-templates'
 gem 'toastr-rails'
 # gem 'turbolinks'
 # gem 'angular-ui-bootstrap-rails'
+gem 'bower-rails'
 
 group :development, :test do
   gem 'pry'
