@@ -1,0 +1,15 @@
+.projects{"ng-controller" => "ProjectsController"}
+  .project-panel{ "ng-if" => "projects", "ng-repeat" => "project in projects"}
+    .project
+      %p.name{'ng-hide' => 'selectedProject.index == $index'}
+        {{project.name}}
+        %span.pull-left.calendar.glyphicon.glyphicon-calendar
+        %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteProject(project.id, $index)"}
+        %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => "selectedProject.index = $index"}
+
+      %form.form-inline{ name: 'project_update_form', 'ng-submit' => 'updateProject(project.id, project.name)',
+      'ng-show' => 'selectedProject.index == $index'}
+        .form-group
+          %input.update-input.form-control{name: 'name', "ng-model" => "project.name", required: 'true', :placeholder => "Enter a project title", :type => "text"}
+          %button.update-btn.btn.btn-success{type: 'submit'} Save
+        %span.pull-right.project-action.glyphicon.glyphicon-remove{"ng-click" => "selectedProject.index = -1"}

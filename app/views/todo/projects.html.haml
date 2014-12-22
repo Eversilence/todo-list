@@ -1,52 +1,21 @@
-.container{"ng-app" => "todo", "ng-controller" => "ProjectsController"}
+.container{"ng-app" => "todo"}
   .jumbotron.transparent
     %h1 SIMPLE TODO LISTS
     %p.lead FROM RUBY GARAGE
 
-  .project-panel{"ng-if" => "projects", "ng-repeat" => "project in projects"}
-    .project
-      %p.name{'ng-hide' => 'selectedProject.index == $index'}
-        {{project.name}}
-        %span.pull-left.calendar.glyphicon.glyphicon-calendar
-        %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteProject(project.id, $index)"}
-        %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => "selectedProject.index = $index"}
+  .projects{"ng-controller" => "ProjectsController"}
+    .project-panel{ "ng-if" => "projects", "ng-repeat" => "project in projects"}
+      .project
+        %p.name{'ng-hide' => 'selectedProject.index == $index'}
+          {{project.name}}
+          %span.pull-left.calendar.glyphicon.glyphicon-calendar
+          %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteProject(project.id, $index)"}
+          %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => "selectedProject.index = $index"}
 
-      %form.form-inline{ name: 'project_update_form', 'ng-submit' => 'updateProject(project.id, project.name)',
-      'ng-show' => 'selectedProject.index == $index'}
-        .form-group
-          %input.update-input.form-control{name: 'name', "ng-model" => "project.name", required: 'true', :placeholder => "Enter a project title", :type => "text"}
-          %button.update-btn.btn.btn-success{type: 'submit'} Save
-        %span.pull-right.project-action.glyphicon.glyphicon-remove{"ng-click" => "selectedProject.index = -1"}
-
-    .tasks{"ng-controller" => "TasksController", "ng-init" => "getTasks(project.id)"}
-      %form.panel.panel-body.add-task-panel{ name:'task_form', 'ng-submit' => 'addTask(project.id)',
-   "ng-class" => "{'has-error': task_form.task_name.$invalid, 'has-success': !task_form.task_name.$invalid}" }
-        %span.pull-left.plus.glyphicon.glyphicon-plus
-        .input-group
-          %input.form-control{name: 'task_name', required: true, "ng-model" => "taskName"}
-          %span.input-group-btn
-            %button.btn.btn-success
-              Add Task
-
-      .task{"ng-if" => "tasks", "ng-repeat" => "task in tasks"}
-        %p.name{"ng-class" => "{'completed-task': task.completed}"}
-          {{task.name}}
-          %span.pull-left
-            %input{ class: 'checkbox-complete', "ng-change" => "taskMarkComplete(project.id, task.id, task.completed)", "ng-model" => "task.completed", :type => "checkbox"}
-          %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteTask(project.id, task.id, $index)"}
-          %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => ""}
+        .project-update-form-directive{'project-update-form' => true}
 
 
-  .panel.panel-body{'ng-show' => 'showProjectCreateForm'}
-    %form.panel.panel-body{ name:'project_form', 'ng-submit' => 'addProject()',
-     "ng-class" => "{'has-error': project_form.name.$invalid, 'has-success': !project_form.name.$invalid}" }
-      .input-group
-        %input.form-control{name: 'name', "ng-model" => "name", required: 'true', :placeholder => "Enter a project title", :type => "text"}
-        %span.input-group-btn
-          %button.btn.btn-success{type: 'submit'} Add new project
+      .task-directive{'task-directive' => true}
 
 
-  .text-center
-    .btn.btn-lg.btn-primary{:type => "button", 'ng-click' => 'showProjectCreateForm = true'}
-      %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
-      Add TODO list
+    .project-create-form-directive{'project-create-form' => true}

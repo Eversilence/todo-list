@@ -1,0 +1,17 @@
+.tasks{"ng-controller" => "TasksController", "ng-init" => "getTasks(project.id)"}
+  %form.panel.panel-body.add-task-panel{ name:'task_form', 'ng-submit' => 'addTask(project.id)',
+"ng-class" => "{'has-error': task_form.task_name.$invalid, 'has-success': !task_form.task_name.$invalid}" }
+    %span.pull-left.plus.glyphicon.glyphicon-plus
+    .input-group
+      %input.form-control{name: 'task_name', required: true, "ng-model" => "taskName"}
+      %span.input-group-btn
+        %button.btn.btn-success
+          Add Task
+
+  .task{"ng-if" => "tasks", "ng-repeat" => "task in tasks"}
+    %p.name{"ng-class" => "{'completed-task': task.completed}"}
+      {{task.name}}
+      %span.pull-left
+        %input{ class: 'checkbox-complete', "ng-change" => "taskMarkComplete(project.id, task.id, task.completed)", "ng-model" => "task.completed", :type => "checkbox"}
+      %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteTask(project.id, task.id, $index)"}
+      %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => ""}

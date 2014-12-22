@@ -1,0 +1,13 @@
+.panel.panel-body{'ng-show' => 'showProjectCreateForm'}
+  %form.panel.panel-body{ name:'project_form', 'ng-submit' => 'addProject()',
+   "ng-class" => "{'has-error': project_form.name.$invalid, 'has-success': !project_form.name.$invalid}" }
+    .input-group
+      %input.form-control{name: 'name', "ng-model" => "name", required: 'true', :placeholder => "Enter a project title", :type => "text"}
+      %span.input-group-btn
+        %button.btn.btn-success{type: 'submit'} Add new project
+
+
+.text-center
+  .btn.btn-lg.btn-primary{:type => "button", 'ng-click' => 'showProjectCreateForm = true'}
+    %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+    Add TODO list
