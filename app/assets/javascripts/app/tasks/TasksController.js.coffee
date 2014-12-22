@@ -15,8 +15,14 @@
         toastr.error('Error adding new task. Try again later')
       )
 
-  $scope.updateTask = (project_id, id) ->
-    # not implemented yet
+  $scope.updateTask = (project_id, id, deadline) ->
+    Task.update(project_id: project_id, id:id, task: {deadline: deadline} ).$promise.then(
+      (value)->
+        toastr.success('Task deadline was successfuly changed')
+      ,
+      (error)->
+        toastr.error('Error changing deadline. Try again later')
+      )
 
   $scope.deleteTask = (project_id, id, index) ->
     Task.destroy(project_id: project_id, id: id).$promise.then(

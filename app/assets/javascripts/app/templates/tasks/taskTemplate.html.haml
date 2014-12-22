@@ -15,3 +15,4 @@
         %input{ class: 'checkbox-complete', "ng-change" => "taskMarkComplete(project.id, task.id, task.completed)", "ng-model" => "task.completed", :type => "checkbox"}
       %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteTask(project.id, task.id, $index)"}
       %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => ""}
+      %span.pull-right.calendar.glyphicon.glyphicon-calendar{'bs-datepicker' => true, 'ng-model' => 'task.deadline', 'data-trigger' => 'click', 'data-placement' => 'top-right', 'data-autoclose' => 'true', 'ng-change' => 'updateTask(project.id, task.id, task.deadline)'}
