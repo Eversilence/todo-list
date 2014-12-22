@@ -3,6 +3,8 @@
   'ngRoute'
   'ngResource'
   'templates'
+  'ngAnimate'
+  'mgcrea.ngStrap'
 ]
 
 @mainApp.config ["$httpProvider", ($httpProvider) ->

@@ -18,6 +18,9 @@
 //= require angular-route
 //= require angular-resource
 //= require angular-rails-templates
+//= require angular-animate
+//= require angular-strap
+//= require angular-strap/dist/angular-strap.tpl.min.js
 //= require app/app
 //  require_tree ./template
 //= require_tree .
