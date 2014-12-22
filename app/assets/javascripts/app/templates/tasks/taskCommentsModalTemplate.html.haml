@@ -1,0 +1,9 @@
+.modal{:role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header{"ng-show" => "title"}
+        %button.close{"ng-click" => "$hide()", :type => "button"} ×
+        %h4.modal-title{"ng-bind" => "title"}
+      .modal-body {{$scope.name}}
+      .modal-footer
+        %button.btn.btn-default{"ng-click" => "$hide()", :type => "button"} Close
