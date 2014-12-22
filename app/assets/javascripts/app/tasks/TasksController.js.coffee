@@ -1,5 +1,5 @@
-@mainApp.controller 'TasksController', ['$scope', 'Task'
-($scope, Task) ->
+@mainApp.controller 'TasksController', ['$scope', '$modal', 'Task'
+($scope, $modal, Task) ->
 
   $scope.getTasks = (project_id) ->
     $scope.tasks = Task.index(project_id: project_id)
@@ -37,10 +37,16 @@
   $scope.taskMarkComplete = (project_id, id, completed) ->
     Task.update(project_id: project_id, id: id, task: {completed: completed} ).$promise.then(
       (value)->
-        toastr.success('Task was successfuly marked as completed') if isCompleted = true
-        toastr.success('Task was successfuly marked as not completed') if isCompleted = false
+        console.log (completed)
+        toastr.success('Task was successfuly marked as completed') if completed == true
+        toastr.success('Task was successfuly marked as incomplete') if completed == false
       ,
       (error)->
         toastr.error('Error marking task complete/incomplete. Try again later')
       )
+
+  $scope.showCommentModal = (task, index) ->
+    console.log (index)
+    $scope.currentTask = index
+    my_modal = $modal({title: task.name, scope: $scope, template: 'app/templates/tasks/taskCommentsModalTemplate.html', content: 'My Content', show: true});
 ]
