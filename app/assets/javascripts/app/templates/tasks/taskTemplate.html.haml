@@ -9,13 +9,15 @@
           Add Task
 
   .task{"ng-if" => "tasks", "ng-repeat" => "task in tasks"}
-    %p.name{"ng-class" => "{'completed-task': task.completed}"}
+    %p.name{"ng-class" => "{'completed-task': task.completed}", "ng-hide" => "selectedTask.index == $index"}
       {{task.name}}
       %span.pull-left
         %input{ class: 'checkbox-complete', "ng-change" => "taskMarkComplete(project.id, task.id, task.completed)", "ng-model" => "task.completed", :type => "checkbox"}
       %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteTask(project.id, task.id, $index)"}
-      %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => ""}
+      %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => "selectedTask.index = $index"}
       %span.pull-right.project-action.glyphicon.glyphicon-comment{"ng-click" => "showCommentModal(task, $index)"}
 
       -# move to separate attr-directive!!
-      %span.pull-right.project-action.glyphicon.glyphicon-calendar{'bs-datepicker' => true, 'ng-model' => 'task.deadline', 'data-trigger' => 'click', 'data-placement' => 'top-right', 'data-autoclose' => 'true', 'ng-change' => 'updateTask(project.id, task.id, task.deadline)'}
+      %span.pull-right.project-action.glyphicon.glyphicon-calendar{'bs-datepicker' => true, 'ng-model' => 'task.deadline', 'data-trigger' => 'click', 'data-placement' => 'top-right', 'data-autoclose' => 'true', 'ng-change' => 'updateTaskDeadline(project.id, task.id, task.deadline)'}
+
+    .task-update-form-directive{'task-update-form' => true}

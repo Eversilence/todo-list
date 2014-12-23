@@ -1,6 +1,8 @@
 @mainApp.controller 'TasksController', ['$scope', '$modal', 'Task'
 ($scope, $modal, Task) ->
 
+  $scope.selectedTask = { index: -1 }
+
   $scope.getTasks = (project_id) ->
     $scope.tasks = Task.index(project_id: project_id)
 
@@ -15,13 +17,23 @@
         toastr.error('Error adding new task. Try again later')
       )
 
-  $scope.updateTask = (project_id, id, deadline) ->
+  $scope.updateTaskDeadline = (project_id, id, deadline) ->
     Task.update(project_id: project_id, id:id, task: {deadline: deadline} ).$promise.then(
       (value)->
         toastr.success('Task deadline was successfuly changed')
       ,
       (error)->
         toastr.error('Error changing deadline. Try again later')
+      )
+
+  $scope.updateTaskName = (project_id, id, name) ->
+    Task.update(project_id: project_id, id:id, task: {name: name} ).$promise.then(
+      (value)->
+        toastr.success('Task name was successfuly changed')
+        $scope.selectedTask.index = -1
+      ,
+      (error)->
+        toastr.error('Error changing task name. Try again later')
       )
 
   $scope.deleteTask = (project_id, id, index) ->
