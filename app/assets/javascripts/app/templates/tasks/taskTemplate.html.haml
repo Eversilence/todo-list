@@ -3,7 +3,7 @@
 "ng-class" => "{'has-error': task_form.task_name.$invalid, 'has-success': !task_form.task_name.$invalid}" }
     %span.pull-left.plus.glyphicon.glyphicon-plus
     .input-group
-      %input.form-control{name: 'task_name', required: true, "ng-model" => "taskName"}
+      %input.form-control{name: 'task_name', placeholder: 'Start typing here to create a task', required: true, 'ng-minlength' => '5', 'ng-maxlength' => '62', "ng-model" => "taskName"}
       %span.input-group-btn
         %button.btn.btn-success
           Add Task
@@ -13,11 +13,11 @@
       {{task.name}}
       %span.pull-left
         %input{ class: 'checkbox-complete', "ng-change" => "taskMarkComplete(project.id, task.id, task.completed)", "ng-model" => "task.completed", :type => "checkbox"}
-      %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteTask(project.id, task.id, $index)"}
-      %span.pull-right.project-action.glyphicon.glyphicon-pencil{"ng-click" => "selectedTask.index = $index"}
-      %span.pull-right.project-action.glyphicon.glyphicon-comment{"ng-click" => "showCommentModal(task, $index)"}
+      %span.pull-right.task-action.glyphicon.glyphicon-trash{"ng-click" => "deleteTask(project.id, task.id, $index)"}
+      %span.pull-right.task-action.glyphicon.glyphicon-pencil{"ng-click" => "selectedTask.index = $index"}
+      %span.pull-right.task-action.glyphicon.glyphicon-comment{"ng-click" => "showCommentModal(task, $index)"}
 
       -# move to separate attr-directive!!
-      %span.pull-right.project-action.glyphicon.glyphicon-calendar{'bs-datepicker' => true, 'ng-model' => 'task.deadline', 'data-trigger' => 'click', 'data-placement' => 'top-right', 'data-autoclose' => 'true', 'ng-change' => 'updateTaskDeadline(project.id, task.id, task.deadline)'}
+      %span.pull-right.task-action.glyphicon.glyphicon-calendar{'bs-datepicker' => true, 'ng-model' => 'task.deadline', 'data-trigger' => 'click', 'data-placement' => 'top-right', 'data-autoclose' => 'true', 'ng-change' => 'updateTaskDeadline(project.id, task.id, task.deadline)'}
 
     .task-update-form-directive{'task-update-form' => true}
