@@ -1,11 +1,11 @@
 angular.module("todo")
   .directive "projectDirective", ->
     replace: true,
-    trancslude: true,
+    transclude: true,
     templateUrl: 'app/templates/projects/projectTemplate.html'
   .directive "projectCreateForm", ->
-    trancslude: true,
+    transclude: true,
     templateUrl: 'app/templates/projects/projectCreateFormTemplate.html'
   .directive "projectUpdateForm", ->
-    trancslude: true,
+    transclude: true,
     templateUrl: 'app/templates/projects/projectUpdateFormTemplate.html'
