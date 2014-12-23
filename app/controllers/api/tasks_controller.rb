@@ -17,9 +17,10 @@ class Api::TasksController < Api::ApplicationController
   end
 
   def update
-    task = Task.find(params[:id])
+    task = Task.find_by_id(params[:id])
 
-    if task.update_attributes(task_params)
+    if task
+      task.update_attributes(task_params)
       render nothing: true, status: 200
     else
       render nothing: true, status: 400
@@ -27,7 +28,7 @@ class Api::TasksController < Api::ApplicationController
   end
 
   def destroy
-    task = Task.find(params[:id])
+    task = Task.find_by_id(params[:id])
 
     if task
       task.destroy

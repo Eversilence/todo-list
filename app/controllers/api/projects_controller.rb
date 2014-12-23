@@ -18,9 +18,10 @@ class Api::ProjectsController < Api::ApplicationController
   end
 
   def update
-    project = Project.find(params[:id])
+    project = Project.find_by_id(params[:id])
 
-    if project.update_attributes(project_params)
+    if project
+      project.update_attributes(project_params)
       render nothing: true, status: 200
     else
       render nothing: true, status: 400
