@@ -2,4 +2,4 @@
   .form-group
     %input.update-input.form-control{name: 'name', 'ng-minlength' => '5', 'ng-maxlength' => '62', "ng-model" => "task.name", required: 'true', :placeholder => "Enter a task title", :type => "text"}
     %button.update-btn.btn.btn-success{type: 'submit'} Save
-  %span.pull-right.project-action.glyphicon.glyphicon-remove{"ng-click" => "selectedTask.index = -1"}
+  %span.pull-right.task-action.glyphicon.glyphicon-remove{"ng-click" => "selectedTask.index = -1"}
