@@ -1,9 +1,12 @@
-.modal{:role => "dialog", :tabindex => "-1"}
-  .modal-dialog
+.modal{:role => "dialog", :tabindex => "-1", 'ng-controller' => 'CommentsController'}
+  .modal-dialog{'ng-init' => 'getComments()'}
     .modal-content
       .modal-header{"ng-show" => "title"}
         %button.close{"ng-click" => "$hide()", :type => "button"} ×
         %h4.modal-title{"ng-bind" => "title"}
-      .modal-body {{$scope.name}}
+      .modal-body{"ng-if" => "comments", "ng-repeat" => "comment in comments"}
+        .task
+          %p.name
+            {{comment.body}}
       .modal-footer
         %button.btn.btn-default{"ng-click" => "$hide()", :type => "button"} Close
