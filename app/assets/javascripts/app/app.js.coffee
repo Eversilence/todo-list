@@ -5,6 +5,7 @@
   'templates'
   'ngAnimate'
   'mgcrea.ngStrap'
+  'angularFileUpload'
 ]
 
 @mainApp.config ["$httpProvider", ($httpProvider) ->

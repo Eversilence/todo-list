@@ -21,6 +21,7 @@
 //= require angular-animate
 //= require angular-strap
 //= require angular-strap/dist/angular-strap.tpl.min.js
+//= require angular-file-upload/angular-file-upload
 //= require app/app
 //  require_tree ./template
 //= require_tree .

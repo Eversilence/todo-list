@@ -2,6 +2,7 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "angular-strap": "latest",
-    "bootstrap-additions": "latest"
+    "bootstrap-additions": "latest",
+    "angular-file-upload": "latest"
   }
 }

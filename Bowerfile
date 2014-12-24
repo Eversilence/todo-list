@@ -4,3 +4,4 @@
 # asset 'bootstrap'
 asset 'angular-strap'
 asset 'bootstrap-additions'
+asset 'angular-file-upload'
