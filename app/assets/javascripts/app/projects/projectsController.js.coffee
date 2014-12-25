@@ -18,7 +18,7 @@
         toastr.success('New project successfuly added')
         $scope.name = ''
         $scope.showProjectCreateForm = false
-        getProjects()
+        $scope.projects.push(value)
       ,
       (error)->
         toastr.error('Error adding new project. Try again later')

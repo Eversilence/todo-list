@@ -10,7 +10,7 @@ class Api::CommentsController < Api::ApplicationController
     comment.task_id = params[:task_id]
 
     if comment.save
-      render nothing: true, status: 200
+      render json: comment, status: 200
     else
       render nothing: true, status: 400
     end
@@ -42,7 +42,7 @@ class Api::CommentsController < Api::ApplicationController
 private
 
   def comment_params
-    params.require(:task).permit(
+    params.require(:comment).permit(
       :body
     )
   end

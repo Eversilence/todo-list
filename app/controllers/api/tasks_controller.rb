@@ -10,7 +10,7 @@ class Api::TasksController < Api::ApplicationController
     task.project_id = params[:project_id]
 
     if task.save
-      render nothing: true, status: 200
+      render json: task, status: 200
     else
       render nothing: true, status: 400
     end

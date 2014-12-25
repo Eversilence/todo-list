@@ -10,8 +10,8 @@
     Task.create(project_id: project_id, task: {name: $scope.taskName} ).$promise.then(
       (value)->
         toastr.success('New task successfuly added')
-        $scope.getTasks(project_id)
         $scope.taskName = ''
+        $scope.tasks.push(value)
       ,
       (error)->
         toastr.error('Error adding new task. Try again later')

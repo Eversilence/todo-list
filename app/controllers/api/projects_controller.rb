@@ -10,7 +10,7 @@ class Api::ProjectsController < Api::ApplicationController
     project.user = current_user
 
     if project.save
-      render nothing: true, status: 200
+      render json: project, status: 200
     else
       render nothing: true, status: 400
     end
