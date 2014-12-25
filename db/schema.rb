@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20141219110501) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "comment_attachments", force: true do |t|
+  create_table "attachments", force: true do |t|
     t.integer  "comment_id"
     t.string   "file"
     t.datetime "created_at"

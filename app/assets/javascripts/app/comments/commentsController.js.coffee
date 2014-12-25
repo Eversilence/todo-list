@@ -1,18 +1,21 @@
-@mainApp.controller 'CommentsController', ['$scope', 'Comment'
-($scope, Comment) ->
+@mainApp.controller 'CommentsController', ['$scope', 'Comment', 'FileUploader'
+($scope, Comment, FileUploader) ->
 
-  $scope.getComments = (task_id) ->
-    console.log ($scope.currentTask)
-    console.log ('task_id: '+$scope.currentTask.id+', project_id: '+$scope.currentTask.project_id)
+  $scope.uploader = new FileUploader(url: '', removeAfterUpload: true)
+
+  $scope.getComments = () ->
     $scope.comments = Comment.index(task_id: $scope.currentTask.id)
-    console.log ($scope.comments)
 
-  $scope.addComment = (task_id) ->
-    Comment.create(task_id: task_id, comment: {body: $scope.commentBody} ).$promise.then(
+  $scope.addComment = (task_id, commentBody) ->
+    Comment.create(task_id: task_id, comment: {body: commentBody} ).$promise.then(
       (value)->
         toastr.success('New comment successfuly added')
-        $scope.getComments(task_id)
-        $scope.commentBody = ''
+        $scope.body = ''
+        $scope.comments.push(value)
+        for item in $scope.uploader.queue
+          item.url = '/api/comments/'+value.id+'/attachments'
+
+        $scope.uploader.uploadAll()
       ,
       (error)->
         toastr.error('Error adding new task. Try again later')

@@ -4,9 +4,25 @@
       .modal-header{"ng-show" => "title"}
         %button.close{"ng-click" => "$hide()", :type => "button"} ×
         %h4.modal-title{"ng-bind" => "title"}
+
       .modal-body{"ng-if" => "comments", "ng-repeat" => "comment in comments"}
-        .task
-          %p.name
+        .comment
+          %p.comment-body
             {{comment.body}}
+          %span.pull-right.comment-action.glyphicon.glyphicon-trash{"ng-click" => "deleteComment( comment.task_id, comment.id, $index)"}
+
       .modal-footer
-        %button.btn.btn-default{"ng-click" => "$hide()", :type => "button"} Close
+        %form{ name:'comment_form', 'ng-submit' => 'addComment(currentTask.id, body)', "ng-class" => "{'has-error': comment_form.comment_body.$invalid, 'has-success': !comment_form.comment_body.$invalid}" }
+          .input-group
+            %input.form-control{name: 'comment_body', placeholder: 'Start typing here to create a comment', required: true, 'ng-minlength' => '5', 'ng-maxlength' => '62', "ng-model" => "body"}
+            %span.input-group-btn
+              %button.btn.btn-success
+                Comment
+          %label.upload-label
+            Attach files
+            %input.file-upload{"nv-file-select" => "", multiple: true, :type => "file", :uploader => "uploader"}
+          .progress
+            .progress-bar{"ng-style" => "{ 'width': uploader.progress + '%' }", :role => "progressbar", :style => "width: 0%;"}
+          %ul.list-group
+            %li.list-group-item{"ng-repeat" => "item in uploader.queue", "ng-click" => "item.remove()"}
+              %p.text-center {{item.file.name}}

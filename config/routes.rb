@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     resources :tasks,           only: [] do
       resources :comments,      only: [:index, :create, :update, :destroy]
     end
+
+    resources :comments,        only: [] do
+      resources :attachments,   only: [:index, :create, :destroy]
+    end
   end
 
   # Example of regular route:
