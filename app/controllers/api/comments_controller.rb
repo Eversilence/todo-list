@@ -2,7 +2,6 @@ class Api::CommentsController < Api::ApplicationController
 
   def index
     @comments = Comment.where(task_id: params[:task_id])
-    render  'api/comments/index'
   end
 
   def create

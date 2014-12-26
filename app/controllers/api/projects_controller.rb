@@ -2,7 +2,6 @@ class Api::ProjectsController < Api::ApplicationController
 
   def index
     @projects = current_user.projects
-    render  'api/projects/index'
   end
 
   def create

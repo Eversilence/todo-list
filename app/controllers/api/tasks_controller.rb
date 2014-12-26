@@ -2,7 +2,6 @@ class Api::TasksController < Api::ApplicationController
 
   def index
     @tasks = Task.where(project_id: params[:project_id])
-    render  'api/tasks/index'
   end
 
   def create
