@@ -6,8 +6,9 @@ class Api::AttachmentsController < Api::ApplicationController
 
   def create
     comment = Comment.find_by_id(params[:comment_id])
-    comment.attachments << Attachment.create(file: params[:file])
-    render nothing: true, status: 200
+    @attachment = Attachment.create(file: params[:file])
+    comment.attachments << @attachment
+    render 'show', status: 200
   end
 
   def destroy

@@ -2,8 +2,8 @@
 ($scope, Comment, FileUploader) ->
 
   $scope.selectedComment = { index: -1 }
-
   $scope.uploader = new FileUploader(url: '', removeAfterUpload: true)
+
   $scope.uploader.onCompleteAll = (progress) ->
     $scope.getComments()
 

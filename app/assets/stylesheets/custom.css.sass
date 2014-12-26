@@ -115,6 +115,7 @@
 
 .task:hover
   background-color: rgba(250, 238, 189, 0.99)
+  transition: background-color 300ms linear
 
 .comment
   border: 1px solid
@@ -132,8 +133,9 @@
   margin-right: 10px
   margin-top: 5px
 
-.list-group-item:hover
+.upload-queue-clear:hover
   background-color: rgba(255, 0, 0, 0.74)
+  transition: background-color 300ms linear
   cursor: pointer
 
 .list-group-item:last-child
@@ -143,18 +145,20 @@
   display: none !important
 
 .upload-label
-  border: 1px solid
-  padding: 4px
-  color: white
-  background-color: #398439
-  border-color: #398439
-  border-radius: 6px
   margin-top: 5px
   margin-bottom: 5px
   cursor: pointer
   float: left
   font-weight: normal
 
+.single-upload-label
+  background-color: rgba(255, 0, 0, 0.74)
+  transition: background-color 300ms linear
+  cursor: pointer
+
 .progress
   margin-top: 10px
+
+.attachment-name
+  text-align: left !important
 
