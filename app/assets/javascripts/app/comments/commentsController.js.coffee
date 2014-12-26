@@ -1,7 +1,11 @@
 @mainApp.controller 'CommentsController', ['$scope', 'Comment', 'FileUploader'
 ($scope, Comment, FileUploader) ->
 
+  $scope.selectedComment = { index: -1 }
+
   $scope.uploader = new FileUploader(url: '', removeAfterUpload: true)
+  $scope.uploader.onCompleteAll = (progress) ->
+    $scope.getComments()
 
   $scope.getComments = () ->
     $scope.comments = Comment.index(task_id: $scope.currentTask.id)

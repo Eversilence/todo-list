@@ -9,7 +9,17 @@
         .comment
           %p.comment-body
             {{comment.body}}
-          %span.pull-right.comment-action.glyphicon.glyphicon-trash{"ng-click" => "deleteComment( comment.task_id, comment.id, $index)"}
+            %span.pull-right.comment-action.glyphicon.glyphicon-trash{"ng-click" => "deleteComment( comment.task_id, comment.id, $index)"}
+            %span.pull-right.comment-action.glyphicon.glyphicon-paperclip{"ng-click" => "selectedComment.index = $index"}
+            .attachments{'ng-controller' => 'AttachmentsController', 'ng-init' => 'getAttachments(comment.id)'}
+              .ul.list-group.attachment{'ng-show' => 'selectedComment.index == $index'}
+                %li.list-group-item{'ng-repeat' => 'attachment in attachments'}
+                  %p
+                    {{attachment.filename}}
+                    %span.pull-right.comment-action.glyphicon.glyphicon-trash{"ng-click" => "deleteAttachment(attachment.comment_id, attachment.id, $index)"}
+                    %span.pull-right.comment-action.glyphicon.glyphicon-save{"ng-click" => ""}
+                %li.list-group-item
+                  %p.text-center Upload attachment
 
       .modal-footer
         %form{ name:'comment_form', 'ng-submit' => 'addComment(currentTask.id, body)', "ng-class" => "{'has-error': comment_form.comment_body.$invalid, 'has-success': !comment_form.comment_body.$invalid}" }
