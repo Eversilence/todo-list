@@ -12,14 +12,17 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'devise'
+gem 'omniauth-facebook'
 gem 'carrierwave'
-gem 'unicorn'
 gem 'angularjs-rails'
 gem 'angular-rails-templates'
 gem 'toastr-rails'
 # gem 'turbolinks'
 # gem 'angular-ui-bootstrap-rails'
 gem 'bower-rails'
+
+gem 'rails_12factor', group: :production
+gem 'unicorn'
 
 group :development, :test do
   gem 'pry'
