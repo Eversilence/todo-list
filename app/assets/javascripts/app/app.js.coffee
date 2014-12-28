@@ -6,6 +6,7 @@
   'ngAnimate'
   'mgcrea.ngStrap'
   'angularFileUpload'
+  'ui.tree'
 ]
 
 @mainApp.config ["$httpProvider", ($httpProvider) ->

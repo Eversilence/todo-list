@@ -1,4 +1,4 @@
-.tasks{"ng-controller" => "TasksController", "ng-init" => "getTasks(project.id)"}
+.tasks{"ng-controller" => "TasksController", "ng-init" => "getTasks(project.id)", 'ui-tree' => true, 'ui-tree-nodes'=>'', 'ng-model'=>"tasks"}
   %form.panel.panel-body.add-task-panel{ name:'task_form', 'ng-submit' => 'addTask(project.id)',
 "ng-class" => "{'has-error': task_form.task_name.$invalid, 'has-success': !task_form.task_name.$invalid}" }
     %span.pull-left.plus.glyphicon.glyphicon-plus
@@ -8,8 +8,8 @@
         %button.btn.btn-success
           Add Task
 
-  .task{"ng-if" => "tasks", "ng-repeat" => "task in tasks"}
-    %p.name{"ng-class" => "{'completed-task': task.completed}", "ng-hide" => "selectedTask.index == $index"}
+  .task{"ng-if" => "tasks", "ng-repeat" => "task in tasks", 'ui-tree-node' => true}
+    %p.name{"ng-class" => "{'completed-task': task.completed}", "ng-hide" => "selectedTask.index == $index", 'ui-tree-handle'=> 'true'}
       {{task.name}}
       %span.pull-left
         %input{ class: 'checkbox-complete', "ng-change" => "taskMarkComplete(project.id, task.id, task.completed)", "ng-model" => "task.completed", :type => "checkbox"}

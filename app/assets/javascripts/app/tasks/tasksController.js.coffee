@@ -3,6 +3,7 @@
 
   $scope.selectedTask = { index: -1 }
 
+
   $scope.getTasks = (project_id) ->
     $scope.tasks = Task.index(project_id: project_id)
 
@@ -58,5 +59,11 @@
 
   $scope.showCommentModal = (task, index) ->
     $scope.currentTask = $scope.tasks[index]
-    my_modal = $modal({title: task.name, scope: $scope, template: 'app/templates/tasks/taskCommentsModalTemplate.html', content: 'My Content', show: true});
+    my_modal = $modal({title: task.name, scope: $scope, template: 'app/templates/tasks/taskCommentsModalTemplate.html', show: true})
+
+  initDragDrop = () ->
+    $scope.$callbacks.accept = (sourceNodeScope, destNodesScope, destIndex) ->
+     console.log(destIndex)
+     return true
+
 ]
