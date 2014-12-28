@@ -5,3 +5,4 @@
 asset 'angular-strap'
 asset 'bootstrap-additions'
 asset 'angular-file-upload'
+asset 'angular-ui-tree'

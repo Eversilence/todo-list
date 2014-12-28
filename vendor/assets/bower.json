@@ -3,6 +3,7 @@
   "dependencies": {
     "angular-strap": "latest",
     "bootstrap-additions": "latest",
-    "angular-file-upload": "latest"
+    "angular-file-upload": "latest",
+    "angular-ui-tree": "latest"
   }
 }
