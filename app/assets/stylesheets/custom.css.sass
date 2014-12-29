@@ -62,6 +62,9 @@
   margin-left: 5px
   margin-bottom: 0px
 
+.name:hover .task-action
+  display: block !important
+
 .calendar
   font-size: 16px
   margin-right: 10px
@@ -88,12 +91,16 @@
   background: #2567c9
   color: white
 
+.project:hover .project-action
+  display: block !important
+
 .project-action
   cursor: pointer
   font-size: 16px
   color: rgba(255, 255, 255, 0.59)
   margin-right: 10px
   margin-top: 12px
+  display: none !important
 
 .task-action
   cursor: pointer
@@ -101,6 +108,7 @@
   color: rgba(128, 128, 128, 0.53)
   margin-right: 10px
   margin-top: 12px
+  display: none !important
 
 .panel
   margin-bottom: 0px !important
@@ -139,8 +147,8 @@
   border-color: grey
 
 .task:last-of-type
-  border-bottom-left-radius: 15px !important
-  border-bottom-right-radius: 15px !important
+  border-bottom-left-radius: 15px
+  border-bottom-right-radius: 15px
 
 .task:hover
   background-color: rgba(250, 238, 189, 0.99)

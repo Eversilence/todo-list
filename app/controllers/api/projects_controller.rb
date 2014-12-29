@@ -28,10 +28,10 @@ class Api::ProjectsController < Api::ApplicationController
   end
 
   def destroy
-    project = Project.where(id: params[:id], user_id: current_user.id)
+    project = Project.find_by_id(params[:id])
 
     if project
-      project.first.destroy
+      project.destroy
       render nothing: true, status: 200
     else
       render nothing: true, status: 400

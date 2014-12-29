@@ -44,7 +44,8 @@ private
     params.require(:task).permit(
       :name,
       :completed,
-      :deadline
+      :deadline,
+      :priority_index
     )
   end
 

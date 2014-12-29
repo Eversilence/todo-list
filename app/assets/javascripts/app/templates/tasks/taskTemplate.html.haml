@@ -1,4 +1,4 @@
-.tasks{"ng-controller" => "TasksController", "ng-init" => "getTasks(project.id)", 'ui-tree' => true, 'ui-tree-nodes'=>'', 'ng-model'=>"tasks"}
+.tasks{"ng-controller" => "TasksController", "ng-init" => "getTasks(project.id)", 'ui-tree' => 'treeOptions', 'ui-tree-nodes'=>'', 'ng-model'=>"tasks"}
   %form.panel.panel-body.add-task-panel{ name:'task_form', 'ng-submit' => 'addTask(project.id)',
 "ng-class" => "{'has-error': task_form.task_name.$invalid, 'has-success': !task_form.task_name.$invalid}" }
     %span.pull-left.plus.glyphicon.glyphicon-plus
@@ -8,16 +8,16 @@
         %button.btn.btn-success
           Add Task
 
-  .task{"ng-if" => "tasks", "ng-repeat" => "task in tasks", 'ui-tree-node' => true}
-    %p.name{"ng-class" => "{'completed-task': task.completed}", "ng-hide" => "selectedTask.index == $index", 'ui-tree-handle'=> 'true'}
+  .task{"ng-if" => "tasks", "ng-repeat" => "task in tasks", 'ui-tree-node' => true, 'ui-tree-handle'=> 'true'}
+    %p.name{"ng-class" => "{'completed-task': task.completed}", "ng-hide" => "selectedTask.index == $index"}
       {{task.name}}
       %span.pull-left
         %input{ class: 'checkbox-complete', "ng-change" => "taskMarkComplete(project.id, task.id, task.completed)", "ng-model" => "task.completed", :type => "checkbox"}
-      %span.pull-right.task-action.glyphicon.glyphicon-trash{"ng-click" => "deleteTask(project.id, task.id, $index)"}
-      %span.pull-right.task-action.glyphicon.glyphicon-pencil{"ng-click" => "selectedTask.index = $index"}
-      %span.pull-right.task-action.glyphicon.glyphicon-comment{"ng-click" => "showCommentModal(task, $index)"}
+      %span.pull-right.task-action.glyphicon.glyphicon-trash{"ng-click" => "deleteTask(project.id, task.id, $index)", 'data-nodrag' => true}
+      %span.pull-right.task-action.glyphicon.glyphicon-pencil{"ng-click" => "selectedTask.index = $index", 'data-nodrag' => true}
+      %span.pull-right.task-action.glyphicon.glyphicon-comment{"ng-click" => "showCommentModal(task, $index)", 'data-nodrag' => true}
 
       -# move to separate attr-directive!!
-      %span.pull-right.task-action.glyphicon.glyphicon-calendar{'bs-datepicker' => true, 'ng-model' => 'task.deadline', 'data-trigger' => 'click', 'data-placement' => 'top-right', 'data-autoclose' => 'true', 'ng-change' => 'updateTaskDeadline(project.id, task.id, task.deadline)'}
+      %span.pull-right.task-action.glyphicon.glyphicon-calendar{'bs-datepicker' => true, 'ng-model' => 'task.deadline', 'data-trigger' => 'click', 'data-placement' => 'top-right', 'data-autoclose' => 'true', 'ng-change' => 'updateTaskDeadline(project.id, task.id, task.deadline)', 'data-nodrag' => true}
 
     .task-update-form-directive{'task-update-form' => true}
