@@ -17,6 +17,7 @@ class Api::AttachmentsController < Api::ApplicationController
       attachment.remove_file!
       attachment.save
       attachment.destroy
+
       render nothing: true, status: 200
     else
       render nothing: true, status: 400
