@@ -8,7 +8,6 @@ describe Attachment do
 
   context 'Validations' do
     it { should validate_presence_of(:comment_id) }
-    it { should validate_presence_of(:file) }
   end
 
 end

@@ -6,5 +6,4 @@ class Comment < ActiveRecord::Base
   validates :body, length: { maximum: 60, minimum: 2 }
   validates :task_id, presence: true
 
-  accepts_nested_attributes_for :attachments
 end
