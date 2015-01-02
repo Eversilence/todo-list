@@ -29,6 +29,12 @@ describe Project do
     expect(project.errors[:name]).to include("is too long (maximum is 60 characters)")
   end
 
+  it 'is invalid if name is shorter than 5 characters' do
+    project = build(:project, name: Faker::Lorem.characters(4))
+    project.valid?
+    expect(project.errors[:name]).to include("is too short (minimum is 5 characters)")
+  end
+
   it "is invalid with a duplicate name if it has the same user" do
     user = create(:user)
     create(:project, name: 'duplicate name', user_id: user.id)
