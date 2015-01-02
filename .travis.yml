@@ -1,3 +1,5 @@
 language: ruby
 rvm:
   - 2.1.5
+before_script:
+  - psql -c 'create database todo_list_test;' -U postgres
