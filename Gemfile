@@ -35,7 +35,7 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-
+  gem 'shoulda-matchers', require: false
   gem 'faker'
   gem 'capybara'
   gem 'database_cleaner'
