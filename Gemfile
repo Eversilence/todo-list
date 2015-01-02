@@ -43,6 +43,8 @@ group :development, :test do
   gem 'selenium-webdriver'
 end
 
+gem "codeclimate-test-reporter", group: :test, require: nil
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

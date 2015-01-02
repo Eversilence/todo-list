@@ -5,3 +5,6 @@ rvm:
   - 2.1.5
 before_script:
   - psql -c 'create database todo_list_test;' -U postgres
+addons:
+  code_climate:
+    repo_token: 64cd7260bb3d6724e1f46124ee9c38f555f8b29797ae26cd0314ff32d45ac427
