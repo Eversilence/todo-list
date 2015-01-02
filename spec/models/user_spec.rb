@@ -1,33 +1,21 @@
 require "rails_helper"
 
 describe User do
-  it 'is valid with an email and a password' do
-    user = build(:user)
-    expect(user).to be_valid
+
+  context 'DB' do
+    it { should have_db_index(:email).unique(true) }
+    it { should have_db_index(:reset_password_token).unique(true) }
   end
 
-  it 'is invalid without an email' do
-    user = build(:user, email: nil)
-    user.valid?
-    expect(user.errors[:email]).to include("can't be blank")
+  context 'Associations' do
+    it { should have_many(:projects).dependent(:destroy) }
   end
 
-  it 'is invalid if email has not valid format' do
-    user = build(:user, email: 'johndoe.com')
-    user.valid?
-    expect(user.errors[:email]).to include("is invalid")
-  end
-
-  it 'is invalid without a password' do
-    user = build(:user, password: nil)
-    user.valid?
-    expect(user.errors[:password]).to include("can't be blank")
-  end
-
-  it 'is invalid if password is shorted than 8 characters' do
-    user = build(:user, password: Faker::Internet.password(1, 7))
-    user.valid?
-    expect(user.errors[:password]).to include("is too short (minimum is 8 characters)")
+  context 'Validations' do
+    it { should validate_presence_of(:email) }
+    it { should ensure_length_of(:password).is_at_least(8) }
+    it { should_not allow_value(Faker::Internet.domain_name).for(:email) }
+    it { should allow_value(Faker::Internet::email).for(:email) }
   end
 
 end
