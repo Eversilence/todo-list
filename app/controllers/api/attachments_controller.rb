@@ -5,24 +5,33 @@ class Api::AttachmentsController < Api::ApplicationController
   end
 
   def create
-    comment = Comment.find_by_id(params[:comment_id])
-    @attachment = Attachment.create(file: params[:file])
-    comment.attachments << @attachment
-    render 'show', status: 200
+    @attachment = Attachment.new(attachment_params)
+
+    if @attachment.save
+      render 'show', status: 200
+    else
+      render nothing: true, status: 400
+    end
   end
 
   def destroy
     attachment = Attachment.find_by_id(params[:id])
-    if attachment
-      attachment.remove_file!
-      attachment.save
-      attachment.destroy
 
+    if attachment
+      attachment.destroy
       render nothing: true, status: 200
     else
       render nothing: true, status: 400
     end
   end
 
+private
+
+  def attachment_params
+    params.permit(
+      :file,
+      :comment_id
+    )
+  end
 
 end

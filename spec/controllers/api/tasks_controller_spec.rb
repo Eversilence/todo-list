@@ -1,19 +1,21 @@
 require "rails_helper"
 
-describe Api::ProjectsController do
+describe Api::TasksController do
   before do
     @user = FactoryGirl.create(:user)
     sign_in(@user)
+
+    @project = FactoryGirl.create(:project, user: @user)
   end
 
   describe "GET #index" do
     before(:each) do
-      @projects = FactoryGirl.create_list(:project, 5, user: @user)
-      get :index, format: :json
+      @tasks = FactoryGirl.create_list(:task, 5, project: @project)
+      get :index, project_id: @project.id, format: :json
     end
 
-    it "should return projects array" do
-      expect(assigns(:projects)).to eq(@projects)
+    it "should return tasks array" do
+      expect(assigns(:tasks)).to eq(@tasks)
     end
     it { should render_template('index') }
     it { should respond_with(200) }
@@ -21,46 +23,45 @@ describe Api::ProjectsController do
 
   describe "POST #create" do
     before do
-      @project_attrs = FactoryGirl.attributes_for(:project, user: @user)
+      @task_attrs = FactoryGirl.attributes_for(:task, project_id: @project.id)
     end
 
     it "should create project" do
-      expect{ post :create, project: @project_attrs }
-      .to change(Project, :count).by(1)
+      expect{ post :create, project_id: @project.id, task: @task_attrs }
+      .to change(Task, :count).by(1)
     end
 
     it "should return created project" do
-      post :create, project: @project_attrs
+      post :create, project_id: @project.id, task: @task_attrs
       json = JSON.parse(response.body)
-      expect(json["name"]).to eq(@project_attrs[:name])
+      expect(json["name"]).to eq(@task_attrs[:name])
     end
 
     it "should respond with status 200 on valid request" do
-      post :create, project: @project_attrs
+      post :create, project_id: @project.id, task: @task_attrs
       expect(response.status).to eq(200)
     end
 
     it "should respond with status 400 on invalid request"
-
   end
 
   describe "DELETE #destroy" do
     before do
-      @project = FactoryGirl.create(:project, user: @user)
+      @task = FactoryGirl.create(:task, project_id: @project.id)
     end
 
     it "should delete project" do
-      expect{ delete :destroy, id: @project.id }
-      .to change(Project, :count).by(-1)
+      expect{ delete :destroy, project_id: @project.id, id: @task.id }
+      .to change(Task, :count).by(-1)
     end
 
     it "should respond with status 200 on valid request" do
-      delete :destroy, id: @project.id
+      delete :destroy, project_id: @project.id, id: @task.id
       expect(response.status).to eq(200)
     end
 
     it "should respond with status 400 on invalid request" do
-      delete :destroy, id: -1
+      delete :destroy, project_id: @project.id, id: -1
       expect(response.status).to eq(400)
     end
 
@@ -68,14 +69,14 @@ describe Api::ProjectsController do
 
   describe "UPDATE #put" do
     before(:each) do
-      @project = FactoryGirl.create(:project, user: @user)
+      @task = FactoryGirl.create(:task, project_id: @project.id)
       @new_attribs = { name: 'updated name' }
-      put :update, id: @project.id, project: @new_attribs
+      put :update, project_id: @project.id, id: @task.id, task: @new_attribs
     end
 
     it "should update project" do
-      @project.reload
-      expect(@project[:name]).to eq(@new_attribs[:name])
+      @task.reload
+      expect(@task[:name]).to eq(@new_attribs[:name])
     end
 
     it "should respond with status 200 on valid request" do
@@ -83,9 +84,8 @@ describe Api::ProjectsController do
     end
 
     it "should respond with status 400 on invalid request" do
-      put :update, id: -1, project: @new_attribs
+      put :update, project_id: @project.id, id: -1, task: @new_attribs
       expect(response.status).to eq(400)
     end
-
   end
 end
