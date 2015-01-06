@@ -1,42 +1,24 @@
 class Api::ProjectsController < Api::ApplicationController
+  load_and_authorize_resource
 
   def index
-    @projects = current_user.projects
   end
 
   def create
-    project      = Project.new(project_params)
-    project.user = current_user
-
-    if project.save
-      render json: project, status: 200
-    else
-      render nothing: true, status: 400
-    end
-
+    render json: @project, status: 200 if @project.save
   end
 
   def update
-    project = Project.find_by_id(params[:id])
+    @project = Project.find(params[:id])
+    authorize! :update, @project
 
-    if project
-      project.update_attributes(project_params)
-      render nothing: true, status: 200
-    else
-      render nothing: true, status: 400
-    end
+    @project.update_attributes(project_params)
+    render nothing: true, status: 200
   end
 
   def destroy
-    project = Project.find_by_id(params[:id])
-
-    if project
-      project.destroy
-      render nothing: true, status: 200
-    else
-      render nothing: true, status: 400
-    end
-
+    @project.destroy
+    render nothing: true, status: 200
   end
 
 private

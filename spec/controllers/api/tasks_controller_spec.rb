@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe Api::TasksController do
+  render_views
   before do
     @user = FactoryGirl.create(:user)
     sign_in(@user)
@@ -21,28 +22,36 @@ describe Api::TasksController do
     it { should respond_with(200) }
   end
 
+
+
   describe "POST #create" do
     before do
-      @task_attrs = FactoryGirl.attributes_for(:task, project_id: @project.id)
+      @task_attrs = FactoryGirl.attributes_for(:task)
     end
 
     it "should create project" do
-      expect{ post :create, project_id: @project.id, task: @task_attrs }
+      expect{ post :create, project_id: @project.id, task: @task_attrs, format: :json }
       .to change(Task, :count).by(1)
     end
 
     it "should return created project" do
-      post :create, project_id: @project.id, task: @task_attrs
+      post :create, project_id: @project.id, task: @task_attrs, format: :json
       json = JSON.parse(response.body)
       expect(json["name"]).to eq(@task_attrs[:name])
     end
 
     it "should respond with status 200 on valid request" do
-      post :create, project_id: @project.id, task: @task_attrs
+      post :create, project_id: @project.id, task: @task_attrs, format: :json
       expect(response.status).to eq(200)
     end
 
-    it "should respond with status 400 on invalid request"
+    it "should respond with status 400 on invalid request" do
+      post :create, project_id: @project.id, task: nil, format: :json
+      expect(response.status).to eq(400)
+
+      post :create, project_id: -1, task: @task_attrs[:name] = '', format: :json
+      expect(response.status).to eq(400)
+    end
   end
 
   describe "DELETE #destroy" do
@@ -84,7 +93,7 @@ describe Api::TasksController do
     end
 
     it "should respond with status 400 on invalid request" do
-      put :update, project_id: @project.id, id: -1, task: @new_attribs
+      put :update, project_id: @project.id, id: @task.id, task: nil
       expect(response.status).to eq(400)
     end
   end

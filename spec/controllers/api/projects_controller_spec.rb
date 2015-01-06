@@ -21,7 +21,7 @@ describe Api::ProjectsController do
 
   describe "POST #create" do
     before do
-      @project_attrs = FactoryGirl.attributes_for(:project, user: @user)
+      @project_attrs = FactoryGirl.attributes_for(:project)
     end
 
     it "should create project" do
@@ -40,7 +40,16 @@ describe Api::ProjectsController do
       expect(response.status).to eq(200)
     end
 
-    it "should respond with status 400 on invalid request"
+    it "should respond with status 400 on invalid request" do
+      post :create, project: nil
+      expect(response.status).to eq(400)
+
+      post :create, project: @project_attrs[:name] = nil
+      expect(response.status).to eq(400)
+
+      post :create, project: @project_attrs[:user_id] = nil
+      expect(response.status).to eq(400)
+    end
 
   end
 

@@ -1,39 +1,33 @@
 class Api::CommentsController < Api::ApplicationController
+  load_and_authorize_resource
 
   def index
-    @comments = Comment.where(task_id: params[:task_id])
   end
 
+  # before_filter authorize doesn't allow task_id!!11
   def create
-    comment         = Comment.new(comment_params)
-    comment.task_id = params[:task_id]
+    @comment.task_id = params[:task_id]
 
-    if comment.save
-      render json: comment, status: 200
+    if @comment.save
+      render json: @comment, status: 200
     else
       render nothing: true, status: 400
     end
   end
 
   def update
-    comment = Comment.find_by_id(params[:id])
-
-    if comment
-      comment.update_attributes(comment_params)
+    if @comment
+      @comment.update_attributes(comment_params)
       render nothing: true, status: 200
-    else
-      render nothing: true, status: 400
     end
   end
 
   def destroy
-    comment = Comment.find_by_id(params[:id])
+    @comment = Comment.find_by_id(params[:id])
 
-    if comment
-      comment.destroy
+    if @comment
+      @comment.destroy
       render nothing:true, status: 200
-    else
-      render nothing:true, status: 400
     end
   end
 

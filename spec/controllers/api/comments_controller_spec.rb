@@ -4,8 +4,8 @@ describe Api::CommentsController do
   before do
     @user = FactoryGirl.create(:user)
     sign_in(@user)
-
-    @task = FactoryGirl.create(:task)
+    project = FactoryGirl.create(:project, user: @user)
+    @task = FactoryGirl.create(:task, project: project)
   end
 
   describe "GET #index" do
@@ -23,7 +23,7 @@ describe Api::CommentsController do
 
   describe "POST #create" do
     before do
-      @comment_attrs = FactoryGirl.attributes_for(:comment, task_id: @task.id)
+      @comment_attrs = FactoryGirl.attributes_for(:comment)
     end
 
     it "should create project" do

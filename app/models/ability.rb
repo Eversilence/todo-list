@@ -5,12 +5,25 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
     # user ||= User.new # guest user (not logged in)
-    alias_action :create, :read, :update, :destroy, :to => :crud
+    alias_action :create, :index, :update, :destroy, :to => :crud
 
     if user
       can :crud, Project, :user_id => user.id
       can :crud, Task, project: { user_id: user.id}
-      can :crud, Comment, task: { project: { user_id: user.id} }
+      # can :crud, Comment, task: { project: { user_id: user.id} }
+      can :crud, Comment do |comment|
+        # binding.pry
+        if comment.new_record?
+          true
+        else
+          comment.task.project.user_id == user.id
+        end
+      end
+
+      # can [:create, :update, :destroy], Comment do |comment|
+      #   true if comment.task.project.user_id == user.id
+      # end
+
       can :crud, Attachment, comment: { task: { project: { user_id: user.id} } }
     else
       cannot :crud, Project
