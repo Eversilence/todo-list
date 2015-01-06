@@ -1,6 +1,7 @@
 require "rails_helper"
 
-describe Api::AttachmentsController do render_views
+describe Api::AttachmentsController do
+  render_views # it is needed to render jbuilder template
   before do
     @user = FactoryGirl.create(:user)
     sign_in(@user)
