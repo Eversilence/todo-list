@@ -5,8 +5,9 @@ describe Api::AttachmentsController do
   before do
     @user = FactoryGirl.create(:user)
     sign_in(@user)
-
-    @comment = FactoryGirl.create(:comment)
+    project = FactoryGirl.create(:project, user: @user)
+    task = FactoryGirl.create(:task, project: project)
+    @comment = FactoryGirl.create(:comment, task: task)
   end
 
   describe "GET #index" do

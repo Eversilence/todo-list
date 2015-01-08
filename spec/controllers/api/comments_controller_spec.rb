@@ -14,7 +14,7 @@ describe Api::CommentsController do
       get :index, task_id: @task.id, format: :json
     end
 
-    it "should return tasks array" do
+    it "should return comments array" do
       expect(assigns(:comments)).to eq(@comments)
     end
     it { should render_template('index') }
@@ -26,12 +26,12 @@ describe Api::CommentsController do
       @comment_attrs = FactoryGirl.attributes_for(:comment)
     end
 
-    it "should create project" do
+    it "should create comment" do
       expect{ post :create, task_id: @task.id, comment: @comment_attrs }
       .to change(Comment, :count).by(1)
     end
 
-    it "should return created project" do
+    it "should return created comment" do
       post :create, task_id: @task.id, comment: @comment_attrs
       json = JSON.parse(response.body)
       expect(json["body"]).to eq(@comment_attrs[:body])
@@ -50,7 +50,7 @@ describe Api::CommentsController do
       @comment = FactoryGirl.create(:comment, task_id: @task.id)
     end
 
-    it "should delete project" do
+    it "should delete comment" do
       expect{ delete :destroy, task_id: @task.id, id: @comment.id }
       .to change(Comment, :count).by(-1)
     end
@@ -84,7 +84,7 @@ describe Api::CommentsController do
     end
 
     it "should respond with status 400 on invalid request" do
-      put :update, task_id: @task.id, id: -1, comment: @new_attribs
+      put :update, task_id: @task.id, id: @comment.id, comment: nil
       expect(response.status).to eq(400)
     end
   end

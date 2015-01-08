@@ -1,28 +1,17 @@
 class Api::AttachmentsController < Api::ApplicationController
+  load_and_authorize_resource :comment
+  load_and_authorize_resource :attachment, through: :comment
 
   def index
-    @attachments = Attachment.where(comment_id: params[:comment_id])
   end
 
   def create
-    @attachment = Attachment.new(attachment_params)
-
-    if @attachment.save
-      render 'show', status: 200
-    else
-      render nothing: true, status: 400
-    end
+    render 'show', status: 200 if @attachment.save
   end
 
   def destroy
-    attachment = Attachment.find_by_id(params[:id])
-
-    if attachment
-      attachment.destroy
-      render nothing: true, status: 200
-    else
-      render nothing: true, status: 400
-    end
+    @attachment.destroy
+    render nothing: true, status: 200
   end
 
 private

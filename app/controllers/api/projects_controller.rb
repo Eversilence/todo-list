@@ -9,9 +9,6 @@ class Api::ProjectsController < Api::ApplicationController
   end
 
   def update
-    @project = Project.find(params[:id])
-    authorize! :update, @project
-
     @project.update_attributes(project_params)
     render nothing: true, status: 200
   end

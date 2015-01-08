@@ -92,7 +92,7 @@ describe Api::ProjectsController do
     end
 
     it "should respond with status 400 on invalid request" do
-      put :update, id: -1, project: @new_attribs
+      put :update, id: @project.id, project: nil
       expect(response.status).to eq(400)
     end
 
