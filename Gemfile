@@ -41,10 +41,12 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers', require: false
   gem 'faker'
-  gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'
+
+  gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'poltergeist'
 end
 
 gem "codeclimate-test-reporter", group: :test, require: nil
