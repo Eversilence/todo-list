@@ -2,11 +2,12 @@ require "rails_helper"
 require "spec_helper"
 
 describe "Project CRUD", :js => true do
+  let!(:user)         { create(:user) }
+  let (:project_name) { Faker::Lorem.words(3).join(' ') }
+
   before do
-    @user = FactoryGirl.create(:user)
-    sign_in(@user)
+    sign_in(user)
   end
-  let(:project_name) { Faker::Lorem.words(3).join(' ') }
 
   it "should create project" do
     visit '/todo/projects'
@@ -17,7 +18,8 @@ describe "Project CRUD", :js => true do
   end
 
   it "should update project" do
-    FactoryGirl.create(:project, user: @user)
+    create(:project, user: user)
+
     visit '/todo/projects'
     page.find('.project').hover
     page.find('.glyphicon-pencil').click
@@ -27,9 +29,9 @@ describe "Project CRUD", :js => true do
   end
 
   it "should delete project" do
-    FactoryGirl.create(:project, name: 'To be deleted', user: @user)
+    create(:project, name: 'To be deleted', user: user)
+
     visit '/todo/projects'
-    page.save_screenshot('delete.jpg')
     page.find('.project').hover
     page.find('.glyphicon-trash').click
     expect(page).to have_no_content('To be deleted')
