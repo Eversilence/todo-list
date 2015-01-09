@@ -14,7 +14,6 @@
       )
 
   $scope.addTask = (project_id) ->
-    console.log ($scope.tasks)
     if $scope.tasks[0] != undefined
       lastTask = $scope.tasks.length-1
       priority = $scope.tasks[lastTask].priority_index+1
