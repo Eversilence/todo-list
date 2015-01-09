@@ -2,7 +2,7 @@ require "rails_helper"
 require "spec_helper"
 
 describe "sign in process", :js => true do
-  let(:email) { Faker::Internet.email}
+  let(:email)    { Faker::Internet.email}
   let(:password) { Faker::Internet.password(8) }
 
   it "signs me up" do

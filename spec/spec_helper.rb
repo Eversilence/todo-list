@@ -32,8 +32,9 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
-  # config.after(:each) do
-  #   Capybara.reset_sessions!
+
+  # config.after(:suite) do
+  #   FileUtils.remove_dir("#{Rails.root}/public/uploads/attachment/file/")
   # end
 
   config.expect_with :rspec do |expectations|
