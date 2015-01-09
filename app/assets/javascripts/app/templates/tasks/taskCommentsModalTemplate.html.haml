@@ -22,7 +22,7 @@
                 %li.list-group-item.text-center
                   %label
                     Attach file
-                    %input.file-upload{"nv-file-select" => "", multiple: true, :type => "file", :uploader => "singleUploader"}
+                    %input.file-upload.single{"nv-file-select" => "", :type => "file", :uploader => "singleUploader"}
       .modal-footer
         %form{ name:'comment_form', 'ng-submit' => 'addComment(currentTask.id, body)', "ng-class" => "{'has-error': comment_form.comment_body.$invalid, 'has-success': !comment_form.comment_body.$invalid}" }
           .input-group
@@ -32,7 +32,7 @@
                 Comment
           %label.upload-label.btn.btn-primary
             Attach files
-            %input.file-upload{"nv-file-select" => "", multiple: true, :type => "file", :uploader => "uploader"}
+            %input.file-upload.multi{"nv-file-select" => "",id: "mult", name: "multi_upload", "multiple" => 'true', :type => "file", :uploader => "uploader"}
           .progress
             .progress-bar{"ng-style" => "{ 'width': uploader.progress + '%' }", :role => "progressbar", :style => "width: 0%;"}
           %ul.list-group
@@ -41,6 +41,6 @@
                 {{item.file.name}}
                 %span.pull-right.comment-action.glyphicon.glyphicon-trash{"ng-click" => "item.remove()"}
             %li.list-group-item.upload-queue-clear{'ng-show' => 'uploader.queue.length > 0'}
-              %p.text-center{'ng-click' => "uploader.clearQueue()"}
+              %p.text-center.clear{'ng-click' => "uploader.clearQueue()"}
                 Remove all uploads from queue
 
