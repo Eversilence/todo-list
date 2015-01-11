@@ -27,7 +27,7 @@ private
       :name,
       :completed,
       :deadline,
-      :priority_index
+      :position
     )
   end
 

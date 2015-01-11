@@ -7,20 +7,14 @@
   $scope.getTasks = (project_id) ->
     $scope.tasks = Task.index(project_id: project_id).$promise.then(
       (value)->
-        $scope.tasks = $filter('orderBy')(value, 'priority_index', false)
+        $scope.tasks = $filter('orderBy')(value, 'position', false)
       ,
       (error)->
         toastr.error('Failed to fetch tasks from server. Try again later')
       )
 
   $scope.addTask = (project_id) ->
-    if $scope.tasks[0] != undefined
-      lastTask = $scope.tasks.length-1
-      priority = $scope.tasks[lastTask].priority_index+1
-    else
-      priority = 0
-
-    Task.create(project_id: project_id, task: {name: $scope.taskName, priority_index: priority} ).$promise.then(
+    Task.create(project_id: project_id, task: {name: $scope.taskName} ).$promise.then(
       (value)->
         toastr.success('New task successfuly added')
         $scope.taskName = ''
@@ -76,13 +70,9 @@
   $scope.treeOptions =
     dropped: (event) ->
       if (event.source.index != event.dest.index)
-        event.source.nodeScope.task.priority_index = event.dest.index
-
-        i = 0
-        for task in event.source.nodeScope.tasks
-          task.priority_index = i
-          i = i+1
-          Task.update(project_id: task.project_id, id:task.id, task: {priority_index: task.priority_index} )
+        task = event.source.nodeScope.task
+        task.position = event.dest.index
+        Task.update(project_id: task.project_id, id:task.id, task: {position: task.position} )
 
     beforeDrag: (sourceNodeScope) ->
       $scope.draggedTask.project_id = sourceNodeScope.task.project_id
