@@ -6,7 +6,7 @@
   .projects{"ng-controller" => "ProjectsController"}
     .project-panel{ "ng-if" => "projects", "ng-repeat" => "project in projects"}
       .project
-        %p.name{'ng-hide' => 'selectedProject.index == $index'}
+        %p.name{'ng-hide' => 'selectedProject.index == $index', "ng-cloak" => 'true'}
           {{project.name}}
           %span.pull-left.calendar.glyphicon.glyphicon-calendar
           %span.pull-right.project-action.glyphicon.glyphicon-trash{"ng-click" => "deleteProject(project.id, $index)"}
