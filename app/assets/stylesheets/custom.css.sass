@@ -28,16 +28,12 @@
   opacity: .8
 
 .bg-gradient
-  background: #f6e6b4
-  background: -moz-linear-gradient(top, #f6e6b4 0%, #ed9017 100%)
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6e6b4), color-stop(100%,#ed9017))
-  background: -webkit-linear-gradient(top, #f6e6b4 0%,#ed9017 100%)
-  background: -o-linear-gradient(top, #f6e6b4 0%,#ed9017 100%)
-  background: -ms-linear-gradient(top, #f6e6b4 0%,#ed9017 100%)
-  background: linear-gradient(to bottom, #f6e6b4 0%,#ed9017 100%)
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6e6b4', endColorstr='#ed9017',GradientType=0 )
-  background-size: 1920px 1080px
-  background-repeat:no-repeat
+  background-attachment: fixed
+  background-image: -o-linear-gradient(bottom, #C1C6B8 16%, #D9D5C1 53%, #D29110 81%, #C5780C 100%)
+  background-image: -moz-linear-gradient(bottom, #C1C6B8 16%, #D9D5C1 53%, #D29110 81%, #C5780C 100%)
+  background-image: -webkit-linear-gradient(bottom, #C1C6B8 16%, #D9D5C1 53%, #D29110 81%, #C5780C 100%)
+  background-image: -ms-linear-gradient(bottom, #C1C6B8 16%, #D9D5C1 53%, #D29110 81%, #C5780C 100%)
+  background-image: linear-gradient(to bottom, #C1C6B8 16%, #D9D5C1 53%, #D29110 81%, #C5780C 100%)
 
 .project-panel
   margin-top: 20px
@@ -63,6 +59,9 @@
   margin-bottom: 0px
 
 .name:hover .task-action
+  display: block !important
+
+.update-form:hover .task-action
   display: block !important
 
 .calendar

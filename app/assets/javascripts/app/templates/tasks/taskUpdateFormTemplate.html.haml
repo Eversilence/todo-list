@@ -1,5 +1,5 @@
-%form.form-inline{ name: 'task_update_form', 'ng-submit' => 'updateTaskName(project.id, task.id ,task.name)', 'ng-show' => 'selectedTask.index == $index'}
+%form.form-inline.update-form{ name: 'task_update_form', 'ng-submit' => 'updateTaskName(project.id, task.id ,task.name)', 'ng-show' => 'selectedTask.index == $index'}
   .form-group
     %input.update-input.form-control{name: 'name', 'ng-minlength' => '5', 'ng-maxlength' => '62', "ng-model" => "task.name", required: 'true', :placeholder => "Enter a task title", :type => "text"}
     %button.update-btn.btn.btn-success{type: 'submit'} Save
-  %span.pull-right.task-action.glyphicon.glyphicon-remove{"ng-click" => "selectedTask.index = -1"}
+  %span.pull-right.task-action.glyphicon.glyphicon-remove{"ng-click" => "selectedTask.index = -1", 'data-nodrag' => true}
