@@ -76,7 +76,8 @@
 
     beforeDrag: (sourceNodeScope) ->
       $scope.draggedTask.project_id = sourceNodeScope.task.project_id
-      return true
+      if $scope.selectedTask.index == -1
+        return true
 
     accept: (sourceNodeScope, destNodesScope, destIndex) ->
       if destNodesScope.tasks[0].project_id != $scope.draggedTask.project_id
