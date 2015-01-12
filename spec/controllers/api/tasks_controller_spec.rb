@@ -52,6 +52,19 @@ describe Api::TasksController do
       post :create, project_id: -1, task: task_attrs[:name] = '', format: :json
       expect(response.status).to eq(400)
     end
+
+    context 'Priority of tasks' do
+      let!(:isolated_project) { create(:project, user: user) }
+      let!(:first_task)       { create(:task, project: isolated_project) }
+      let!(:second_task)      { create(:task, project: isolated_project) }
+      let!(:third_task)       { create(:task, project: isolated_project) }
+
+      it "should be created with correct priority" do
+        expect(first_task.position).to eq(1)
+        expect(second_task.position).to eq(2)
+        expect(third_task.position).to eq(3)
+      end
+    end
   end
 
   describe "DELETE #destroy" do
